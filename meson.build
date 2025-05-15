@@ -1,13 +1,10 @@
 project('tmpdf-drm', 'cpp')
 
-openssl_dep = declare_dependency(
-    include_directories: include_directories('C:\Program Files\OpenSSL-Win64/include'),
-    link_args: ['-L' + 'C:\Program Files\OpenSSL-Win64\lib']
-)
+openssl_dep = dependency('openssl', required: true)
 
 srcs = [
-    'main.cpp',
+    'drpdf_encryptor.cpp',
     'core/encrypt/tmpdf_encryptor.cpp'
 ]
 
-executable('main', srcs, dependencies: openssl_dep)
+executable('drpdf_encryptor', srcs, dependencies: openssl_dep)
