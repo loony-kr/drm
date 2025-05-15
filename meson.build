@@ -3,7 +3,7 @@ project('tmpdf-drm', 'cpp')
 openssl_dep = dependency('openssl', required: true)
 
 srcs = [
-    'drpdf_encryptor.cpp',
+    'main.cpp',
     'core/encrypt/tmpdf_encryptor.cpp'
 ]
 
