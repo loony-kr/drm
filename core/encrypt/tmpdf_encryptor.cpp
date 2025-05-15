@@ -16,7 +16,7 @@ const size_t AES_KEY_SIZE = 32; // AES-256
 const size_t IV_SIZE = 12;
 const size_t TAG_SIZE = 16;
 
-void read_file(const std::string &path, std::vector<unsigned char> &buffer) {
+void TMPDFEncryptor::read_file(const std::string &path, std::vector<unsigned char> &buffer) {
 	std::ifstream file(path, std::ios::binary);
 	if (!file) {
 		throw std::runtime_error("[Error] Failed to open file: " + path);
@@ -26,7 +26,7 @@ void read_file(const std::string &path, std::vector<unsigned char> &buffer) {
 	              std::istreambuf_iterator<char>());
 }
 
-void write_file(const std::string &path, const std::vector<unsigned char> &buffer) {
+void TMPDFEncryptor::write_file(const std::string &path, const std::vector<unsigned char> &buffer) {
 	std::ofstream file(path, std::ios::binary);
 	if (!file) {
 		throw std::runtime_error("[Error] Failed to write file: " + path);
@@ -34,7 +34,7 @@ void write_file(const std::string &path, const std::vector<unsigned char> &buffe
 	file.write(reinterpret_cast<const char *>(buffer.data()), buffer.size());
 }
 
-std::vector<unsigned char> encrypt_aes_gcm(
+std::vector<unsigned char> TMPDFEncryptor::encrypt_aes_gcm(
 	const std::vector<unsigned char> &data,
 	const std::vector<unsigned char> &key,
 	std::vector<unsigned char> &iv,
@@ -63,7 +63,7 @@ std::vector<unsigned char> encrypt_aes_gcm(
 	return ciphertext;
 }
 
-void tmpdf_encrypt(
+void TMPDFEncryptor::encrypt(
 	const std::string& input_tmpdf_path,
 	const std::string& output_tmpdf_path,
 	const std::string& key_file
