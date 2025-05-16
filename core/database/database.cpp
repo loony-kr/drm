@@ -40,7 +40,7 @@ void Database::create_tables() {
 }
 
 void Database::save_file_mapping(const std::string& original_name, const std::string& hashed_name) {
-    const char* sql = "INSERT INTO file_mappings (original_name, hashed_name) VALUES (?, ?);";
+    const char* sql = "INSERT OR REPLACE INTO file_mappings (original_name, hashed_name) VALUES (?, ?);";
     sqlite3_stmt* stmt;
     
     int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr);
@@ -55,7 +55,7 @@ void Database::save_file_mapping(const std::string& original_name, const std::st
     sqlite3_finalize(stmt);
 
     if (rc != SQLITE_DONE) {
-        throw std::runtime_error("Failed to save file mapping: " + std::string(sqlite3_errmsg(db)));
+        throw std::runtime_error("[Error] Failed to save file mapping: " + std::string(sqlite3_errmsg(db)));
     }
 }
 
