@@ -65,6 +65,6 @@
         "valarray": "cpp",
         "source_location": "cpp"
     },
-    "C_Cpp.default.compileCommands": "/Users/firo/CLionProjects/drm/builddir/compile_commands.json",
+    "C_Cpp.default.compileCommands": "/Users/firo/CLionProjects/drm/build/compile_commands.json",
     "C_Cpp.default.configurationProvider": "mesonbuild.mesonbuild"
 }
