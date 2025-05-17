@@ -98,19 +98,11 @@ int main() {
             std::vector<unsigned char> iv, tag, ciphertext;
             decryptor.extract_components(buffer, iv, tag, ciphertext);
 
-            // 디버깅을 위한 출력
-            std::cout << "Server Tag bytes: ";
-            for (size_t i = 0; i < tag.size(); i++) {
-                printf("%02x ", tag[i]);
-            }
-            std::cout << std::endl;
-
             std::string master_key = load_env()["MASTER_KEY"];
             std::string public_key = mock_public_key_server();
             std::vector<unsigned char> aes_key = hmac.generate_hmac_sha256(master_key, fileId);
             std::vector<unsigned char> encrypted_aes_key = rsa.rsa_encrypt(public_key, aes_key);
-
-            // JSON 응답 생성
+            
             nlohmann::json response = {
                 {"filename", file_exists},
                 {"iv", base64.encode(iv)},
