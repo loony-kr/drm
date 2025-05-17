@@ -16,8 +16,24 @@ srcs = [
     'core/database/database.cpp',
 ]
 
-executable('drmpdf_encryptor',
+executable('encryptor',
   srcs,
+  dependencies : [openssl_dep, nlohmann_json, sqlite_dep],
+  include_directories : include_directories('core'),
+  link_args : ['-L/opt/homebrew/opt/openssl@3/lib', '-lssl', '-lcrypto']
+)
+
+server_srcs = [
+    'server.cpp',
+    'core/encrypt/encryptor.cpp',
+    'core/decrypt/decryptor.cpp',
+    'core/filesystem/filesystem.cpp',
+    'core/base/baseDRM.cpp',
+    'core/database/database.cpp',
+]
+
+executable('server',
+  server_srcs,
   dependencies : [openssl_dep, nlohmann_json, sqlite_dep],
   include_directories : include_directories('core'),
   link_args : ['-L/opt/homebrew/opt/openssl@3/lib', '-lssl', '-lcrypto']
