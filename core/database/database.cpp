@@ -1,6 +1,12 @@
+//
+// Created by iamfiro on 25. 5. 16.
+//
+
 #include "database.h"
-#include <core/filesystem/filesystem.h>
+
 #include <stdexcept>
+
+#include <core/filesystem/filesystem.h>
 
 Database::Database() {
     init_database();

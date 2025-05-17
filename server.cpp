@@ -1,15 +1,21 @@
-#include "core/http/httplib.h"
-#include "core/database/database.h"
-#include "core/filesystem/filesystem.h"
-#include "core/decrypt/decryptor.h"
+//
+// Created by chosu on 25. 5. 15.
+//
+
+#include <chrono>
+#include <iomanip>
+#include <sstream>
+
 #include "nlohmann/json.hpp"
+
 #include "core/env/env.h"
 #include "core/hmac/hmac.h"
 #include "core/rsa/rsa.h"
 #include "core/base64/base64.h"
-#include <chrono>
-#include <iomanip>
-#include <sstream>
+#include "core/http/httplib.h"
+#include "core/database/database.h"
+#include "core/filesystem/filesystem.h"
+#include "core/decrypt/decryptor.h"
 
 const std::string api_version = "1";
 

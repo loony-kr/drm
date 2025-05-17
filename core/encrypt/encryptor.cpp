@@ -1,5 +1,5 @@
 //
-// Created by chosu on 25. 5. 15.
+// Created by iamfiro on 25. 5. 15.
 //
 
 #include "encryptor.h"
@@ -9,7 +9,6 @@
 #include <fstream>
 #include <vector>
 #include <string>
-
 #include <openssl/evp.h>
 #include <openssl/rand.h>
 #include <openssl/hmac.h>

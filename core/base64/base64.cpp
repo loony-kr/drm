@@ -1,9 +1,13 @@
+//
+// Created by iamfiro on 25. 5. 17.
+//
+
 #include "base64.h"
 
-#include <openssl/evp.h>
-#include <openssl/buffer.h>
 #include <vector>
 #include <string>
+#include <openssl/evp.h>
+#include <openssl/buffer.h>
 
 std::string Base64::encode(const std::vector<unsigned char>& data) {
     BIO *bio, *b64;

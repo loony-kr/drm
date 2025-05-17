@@ -1,12 +1,16 @@
+//
+// Created by iamfiro on 25. 5. 17.
+//
+
 #include "rsa.h"
 
-#include <openssl/rsa.h>
-#include <openssl/pem.h>
-#include <openssl/err.h>
 #include <vector>
 #include <string>
 #include <stdexcept>
 #include <iostream>
+#include <openssl/rsa.h>
+#include <openssl/pem.h>
+#include <openssl/err.h>
 
 std::vector<unsigned char> RSAHelper::rsa_encrypt(const std::string& pem_pubkey, const std::vector<unsigned char>& aes_key) {
     BIO* bio = BIO_new_mem_buf(pem_pubkey.data(), pem_pubkey.size());

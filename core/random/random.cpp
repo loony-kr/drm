@@ -1,3 +1,7 @@
+//
+// Created by iamfiro on 25. 5. 17.
+//
+
 #include "random.h"
 
 #include <random>
