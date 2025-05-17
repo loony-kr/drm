@@ -5,6 +5,7 @@ server
 
 database/
 pdf/
+input/
 
 test.pdf
 
