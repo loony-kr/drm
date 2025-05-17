@@ -17,6 +17,7 @@ PDF 파일에 대한 DRM 인증서를 발급하는 서버입니다.
 │   └── decrypt/     # 복호화
 ├── pdf/            # PDF 파일 저장소
 ├── server.cpp      # 메인 서버
+├── main.cpp        # PDF 암호화 CLI
 └── .env           # 환경 설정
 ```
 
@@ -69,6 +70,8 @@ g++ -std=c++17 server.cpp -o server
 - httplib: HTTP 서버 구현
 - OpenSSL: 암호화 기능 (RSA, HMAC)
 
+## 시스템 구성
+
 ### 핵심 컴포넌트
 
 1. **서버 (server.cpp)**
@@ -89,8 +92,6 @@ g++ -std=c++17 server.cpp -o server
    - 파일 메타데이터 저장
    - 원본 파일명 관리
 
-## 주의사항
+## API Route
 
-- MASTER_KEY는 반드시 안전하게 관리해야 합니다.
-- 실제 운영 환경에서는 mock 서버 대신 실제 인증 서버를 연동해야 합니다.
-- 파일 시스템 접근 권한을 적절히 설정해야 합니다. 
+- `GET /v1/drm/certificate`
