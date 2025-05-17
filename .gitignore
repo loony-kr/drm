@@ -1,6 +1,7 @@
 key_file
 
-drmpdf_encryptor
+encryptor
+server
 
 database/
 pdf/
