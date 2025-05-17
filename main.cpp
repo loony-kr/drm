@@ -48,12 +48,11 @@ int main(int argc) {
     for (const auto& pdfFile : pdfFiles) {
         try {
             encryptor.encrypt(pdfFile);
-            std::cout << "Successfully encrypted: " << pdfFile << std::endl;
             
             // 암호화된 파일의 원본 삭제
             try {
                 fs::remove(pdfFile);
-                std::cout << "Original file deleted: " << pdfFile << std::endl;
+                std::cout << "ㄴ Original file deleted: " << pdfFile << std::endl;
             } catch (const std::exception& e) {
                 std::cerr << "Error deleting original file " << pdfFile << ": " << e.what() << std::endl;
             }
