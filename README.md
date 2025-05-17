@@ -43,9 +43,11 @@ MASTER_KEY=your_master_key_here
 
 3. 빌드 및 실행
 ```bash
-# 서버 빌드
-g++ -std=c++17 server.cpp -o server
+# meson 설정
+meson setup build --backend=ninja 
 
+# 서버 빌드
+meson compile -C build
 # PDF 파일 암호화
 ./encrypt
 
