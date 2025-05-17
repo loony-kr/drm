@@ -48,6 +48,7 @@ meson setup build --backend=ninja
 
 # 서버 빌드
 meson compile -C build
+
 # PDF 파일 암호화
 ./encrypt
 
