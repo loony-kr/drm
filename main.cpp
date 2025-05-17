@@ -3,32 +3,63 @@
 //
 
 #include <iostream>
-#include <core/encrypt/encryptor.h>
+#include <filesystem>
+#include <vector>
+#include "core/encrypt/encryptor.h"
 
-int main(int argc, char* argv[]) {
-    if (argc != 5) {
-        std::cerr << "usage: ./drpdf_encryptor --in input.pdf --key aes.key\n";
-        return 1;
-    }
+namespace fs = std::filesystem;
 
-    std::string in_file, key_file;
-    for (int i = 1; i < argc; i += 2) {
-        std::string flag = argv[i];
-        std::string value = argv[i + 1];
-        if (flag == "--in") in_file = value;
-        else if (flag == "--key") key_file = value;
-        else {
-            std::cerr << "idk options lol: " << flag << std::endl;
-            return 1;
-        }
-    }
-
+std::vector<std::string> loadPDFsFromDirectory(const std::string& directoryPath) {
+    std::vector<std::string> pdfFiles;
+    
     try {
-        DRMEncryptor encryptor;
-        encryptor.encrypt(in_file, key_file);
+        for (const auto& entry : fs::directory_iterator(directoryPath)) {
+            if (entry.path().extension() == ".pdf") {
+                pdfFiles.push_back(entry.path().string());
+            }
+        }
     } catch (const std::exception& e) {
-        std::cerr << "error: " << e.what() << std::endl;
-        return 1;
+        std::cerr << "Error reading directory: " << e.what() << std::endl;
+    }
+    
+    return pdfFiles;
+}
+
+int main(int argc) {
+    const std::string inputDir = "input";
+    
+    // input 디렉토리가 없으면 생성
+    if (!fs::exists(inputDir)) {
+        fs::create_directory(inputDir);
+        std::cout << "Created input directory. Please place PDF files in this directory." << std::endl;
+        return 0;
+    }
+
+    // PDF 파일 목록 가져오기
+    std::vector<std::string> pdfFiles = loadPDFsFromDirectory(inputDir);
+    
+    if (pdfFiles.empty()) {
+        std::cout << "No PDF files found in input directory." << std::endl;
+        return 0;
+    }
+
+    // 각 PDF 파일을 DRM_Encrypt로 처리
+    DRMEncryptor encryptor;
+    for (const auto& pdfFile : pdfFiles) {
+        try {
+            encryptor.encrypt(pdfFile);
+            std::cout << "Successfully encrypted: " << pdfFile << std::endl;
+            
+            // 암호화된 파일의 원본 삭제
+            try {
+                fs::remove(pdfFile);
+                std::cout << "Original file deleted: " << pdfFile << std::endl;
+            } catch (const std::exception& e) {
+                std::cerr << "Error deleting original file " << pdfFile << ": " << e.what() << std::endl;
+            }
+        } catch (const std::exception& e) {
+            std::cerr << "Error encrypting " << pdfFile << ": " << e.what() << std::endl;
+        }
     }
 
     return 0;

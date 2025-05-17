@@ -15,6 +15,8 @@ srcs = [
     'core/base/baseDRM.cpp',
     'core/database/database.cpp',
     'core/hmac/hmac.cpp',
+    'core/random/random.cpp',
+    'core/env/env.cpp',
 ]
 
 executable('encryptor',
@@ -32,6 +34,8 @@ server_srcs = [
     'core/base/baseDRM.cpp',
     'core/database/database.cpp',
     'core/hmac/hmac.cpp',
+    'core/random/random.cpp',
+    'core/env/env.cpp',
 ]
 
 executable('server',
