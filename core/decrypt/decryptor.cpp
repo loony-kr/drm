@@ -32,16 +32,29 @@ void DRMDecryptor::extract_components(
     std::vector<unsigned char>& tag,
     std::vector<unsigned char>& ciphertext
 ) {
-    size_t offset = DRMDecryptor::HEADER_SIZE;
+    if (encrypted_data.size() < HEADER_SIZE + IV_SIZE + TAG_SIZE) {
+        throw std::runtime_error("Encrypted data is too short");
+    }
 
-    iv.assign(encrypted_data.begin() + offset, 
-             encrypted_data.begin() + offset + DRMDecryptor::IV_SIZE);
+    size_t offset = HEADER_SIZE;
+
+    // IV 추출 (12바이트)
+    iv.clear();
+    iv.insert(iv.end(), 
+             encrypted_data.begin() + offset, 
+             encrypted_data.begin() + offset + IV_SIZE);
     offset += IV_SIZE;
 
-    tag.assign(encrypted_data.begin() + offset, 
-              encrypted_data.begin() + offset + DRMDecryptor::TAG_SIZE);
+    // TAG 추출 (16바이트)
+    tag.clear();
+    tag.insert(tag.end(), 
+              encrypted_data.begin() + offset, 
+              encrypted_data.begin() + offset + TAG_SIZE);
     offset += TAG_SIZE;
 
-    ciphertext.assign(encrypted_data.begin() + offset, 
+    // 나머지 데이터를 암호문으로 추출
+    ciphertext.clear();
+    ciphertext.insert(ciphertext.end(), 
+                     encrypted_data.begin() + offset, 
                      encrypted_data.end());
 }

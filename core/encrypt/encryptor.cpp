@@ -41,6 +41,12 @@ std::vector<unsigned char> DRMEncryptor::encrypt_aes_gcm(
 	EVP_EncryptUpdate(ctx, ciphertext.data(), &len, plaintext.data(), plaintext.size());
 	ciphertext_len = len;
 
+	// Finalize encryption
+	int final_len = 0;
+	EVP_EncryptFinal_ex(ctx, ciphertext.data() + len, &final_len);
+	ciphertext_len += final_len;
+
+	// Get the tag after encryption is complete
 	tag.resize(TAG_SIZE);
 	EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GCM_GET_TAG, TAG_SIZE, tag.data());
 
