@@ -14,6 +14,7 @@ srcs = [
     'core/filesystem/filesystem.cpp',
     'core/base/baseDRM.cpp',
     'core/database/database.cpp',
+    'core/hmac/hmac.cpp',
 ]
 
 executable('encryptor',
@@ -30,6 +31,7 @@ server_srcs = [
     'core/filesystem/filesystem.cpp',
     'core/base/baseDRM.cpp',
     'core/database/database.cpp',
+    'core/hmac/hmac.cpp',
 ]
 
 executable('server',

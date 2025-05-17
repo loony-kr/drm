@@ -1,19 +1,16 @@
 {
-    "configurations": [
-      {
-        "name": "Mac",
-        "includePath": [
-          "${workspaceFolder}/**",
-          "/opt/homebrew/include",
-          "/opt/homebrew/opt/openssl/include"  // OpenSSL 경로
-        ],
-        "defines": [],
-        "macFrameworkPath": [],
-        "compilerPath": "/usr/bin/clang++",
-        "cStandard": "c11",
-        "cppStandard": "c++17",
-        "intelliSenseMode": "macos-clang-arm64"
-      }
-    ],
-    "version": 4
-  }
+  "configurations": [
+    {
+      "name": "Mac",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "/opt/homebrew/opt/openssl@3/include"
+      ],
+      "defines": [],
+      "compilerPath": "/opt/homebrew/bin/g++-13",
+      "cStandard": "c11",
+      "cppStandard": "c++17"
+    }
+  ],
+  "version": 4
+}

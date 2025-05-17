@@ -26,8 +26,6 @@ class DRMEncryptor: public BaseDRM {
             std::vector<unsigned char>& iv,
             std::vector<unsigned char>& tag
         );
-
-        std::string generate_random_string(size_t length);
         
         std::unique_ptr<Database> db;
 };
