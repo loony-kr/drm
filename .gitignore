@@ -7,3 +7,5 @@ database/
 pdf/
 
 test.pdf
+
+.env
