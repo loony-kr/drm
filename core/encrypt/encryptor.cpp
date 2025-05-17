@@ -12,6 +12,8 @@
 #include <string>
 #include <openssl/evp.h>
 #include <openssl/rand.h>
+#include <openssl/hmac.h>
+#include <core/env/env.h>
 
 DRMEncryptor::DRMEncryptor() : db(std::make_unique<Database>()) {}
 
@@ -44,21 +46,21 @@ std::vector<unsigned char> DRMEncryptor::encrypt_aes_gcm(
 	return ciphertext;
 }
 
-void DRMEncryptor::encrypt(
-	const std::string& file_path,
-	const std::string& key_file
-) {
+void DRMEncryptor::encrypt(const std::string& file_path) {
 	FileSystem fs;
 
-	std::vector<unsigned char> key, data, iv, tag;
 
-	fs.read_file(key_file, key);
-	if (key.size() != AES_KEY_SIZE) throw std::runtime_error("Invalid key size, AES key must be 32 length");
+	std::vector<unsigned char> data, iv, tag;
 
+	// 암호화 되지 않은 PDF 읽기
 	fs.read_file(file_path, data);
-	auto ciphertext = encrypt_aes_gcm(data, key, iv, tag);
 
 	std::string file_name_hashed = generate_random_string(16);
+
+	// 암호화 키 생성
+	std::string master_key = load_env()["MASTER_KEY"];
+	std::vector<unsigned char> aes_key = HMAC(master_key, file_name_hashed);
+	auto ciphertext = encrypt_aes_gcm(data, aes_key, iv, tag);
 	
 	// 원본 파일 이름 추출
 	std::string original_name = fs.get_filename(file_path);

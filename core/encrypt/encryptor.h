@@ -16,7 +16,7 @@ class DRMEncryptor: public BaseDRM {
         ~DRMEncryptor() = default;
 
         // PDF를 AES-GCM 기법을 사용해 tmpdf로 암호화하는 함수
-        void encrypt(const std::string& file_path, const std::string& key_file);
+        void encrypt(const std::string& file_path);
 
     private:
         // AES-GCM으로 암호화 하는 함수
